@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Install and configure noVNC + VNC server on Kali/Debian/Ubuntu
+# install-novnc.sh — Install and configure noVNC + VNC server on Kali/Debian/Ubuntu
+# Author: SkyzFallin (https://github.com/SkyzFallin)
 # Usage: sudo ./install-novnc.sh
 
 if [[ $EUID -ne 0 ]]; then

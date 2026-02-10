@@ -2,10 +2,12 @@
 
 One-command noVNC setup for Kali Linux. Get browser-based remote desktop access in under a minute.
 
+**Author:** [SkyzFallin](https://github.com/SkyzFallin)
+
 ## Quick Start
 
 ```bash
-git clone https://github.com/YOUR_USER/YesNoVNC.git
+git clone https://github.com/SkyzFallin/YesNoVNC.git
 cd YesNoVNC
 sudo ./install-novnc.sh
 ```

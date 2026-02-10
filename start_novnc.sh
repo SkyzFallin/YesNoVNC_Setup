@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# start_novnc.sh — Start VNC server and noVNC web proxy
+# Author: SkyzFallin (https://github.com/SkyzFallin)
+# Starts tightvncserver on display :1 and launches the noVNC websocket proxy on port 6080.
+
 echo "[+] Starting noVNC Environment..."
 
 # Start VNC Server
