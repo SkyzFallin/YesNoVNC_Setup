@@ -1,5 +1,10 @@
 # YesNoVNC
 
+<p align="center">
+  <img src="yesnovnc_logo.svg" alt="YesNoVNC" width="760"/>
+</p>
+
+
 One-command noVNC setup for Kali Linux. Get browser-based remote desktop access in under a minute — over HTTPS.
 
 **Author:** [SkyzFallin](https://github.com/SkyzFallin)
@@ -59,6 +64,15 @@ The install script handles everything:
 **Change VNC password:** Run `vncpasswd`, then `stop-novnc && start-novnc`.
 
 **Regenerate TLS certificate:** Delete `/etc/novnc-certs/novnc.pem` and re-run `sudo ./install-novnc.sh`.
+
+## Credits
+
+YesNoVNC is a setup and orchestration wrapper around these excellent projects:
+
+- **[noVNC](https://github.com/novnc/noVNC)** — The browser-based VNC client (HTML5/WebSockets). Licensed under [MPL-2.0](https://github.com/novnc/noVNC/blob/master/LICENSE.txt).
+- **[websockify](https://github.com/novnc/websockify)** — The WebSocket-to-TCP proxy bundled with noVNC (`novnc_proxy`). Handles the TLS termination for HTTPS. Licensed under [LGPL-3.0](https://github.com/novnc/websockify/blob/master/LICENSE.txt).
+- **[TightVNC](https://www.tightvnc.com/)** (`tightvncserver`) — The VNC server running on the host.
+- **[XFCE](https://xfce.org/)** — The lightweight desktop environment served over VNC.
 
 ## License
 
