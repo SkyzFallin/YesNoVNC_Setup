@@ -1,6 +1,6 @@
 # YesNoVNC
 
-One-command noVNC setup for Kali Linux. Get browser-based remote desktop access in under a minute.
+One-command noVNC setup for Kali Linux. Get browser-based remote desktop access in under a minute — over HTTPS.
 
 **Author:** [SkyzFallin](https://github.com/SkyzFallin)
 
@@ -12,22 +12,26 @@ cd YesNoVNC
 sudo ./install-novnc.sh
 ```
 
+The installer will prompt you to set a VNC password — anything except `"password"`. It then generates a self-signed TLS certificate so the session is served over HTTPS.
+
 Then:
 ```bash
-start-novnc     # start VNC server + noVNC proxy
+start-novnc     # start VNC server + noVNC proxy (HTTPS)
 stop-novnc      # stop everything
 ```
 
-Access via browser: `http://localhost:6080/vnc.html`
+Access via browser: `https://localhost:6080/vnc.html`
 
-Default VNC password: `password` (change with `vncpasswd`)
+> **Browser warning:** You'll see a self-signed certificate warning on first visit. Accept/trust it once and it won't recur for this host.
 
 ## What It Does
 
 The install script handles everything:
 
-- Installs dependencies (`tightvncserver`, `git`, `xfce4`, `dbus-x11`)
-- Sets up VNC password and xstartup (with the blank screen fix)
+- Installs dependencies (`tightvncserver`, `git`, `xfce4`, `dbus-x11`, `openssl`)
+- Prompts for a VNC password (enforces non-default, minimum 6 characters)
+- Generates a self-signed TLS certificate at `/etc/novnc-certs/novnc.pem`
+- Sets up VNC xstartup (with the blank screen fix)
 - Clones noVNC to `/opt/noVNC`
 - Installs `start-novnc` and `stop-novnc` commands to `/usr/local/bin`
 
@@ -37,19 +41,24 @@ The install script handles everything:
 |------|-------|
 | VNC Display | `:1` |
 | VNC Port | `5901` |
-| noVNC Port | `6080` |
+| noVNC Port | `6080` (HTTPS) |
 | Resolution | `1920x1080` |
 | Desktop | XFCE4 |
+| TLS Certificate | `/etc/novnc-certs/novnc.pem` (self-signed, 10 years) |
 
 ## Troubleshooting
 
 **Blank screen:** The install script already applies the fix (`unset SESSION_MANAGER` / `unset DBUS_SESSION_BUS_ADDRESS` in `~/.vnc/xstartup`). If you still get a blank screen, restart with `stop-novnc && start-novnc`.
 
-**Can't connect on port 6080:** Check that websockify is running: `ps aux | grep websockify`. Check logs: `cat /tmp/novnc.log`.
+**Can't connect on port 6080:** Make sure you're using `https://` not `http://`. Check that websockify is running: `ps aux | grep websockify`. Check logs: `cat /tmp/novnc.log`.
+
+**Browser certificate warning:** This is expected with a self-signed cert. Click "Advanced" → "Accept the Risk and Continue" (Firefox) or "Proceed to localhost" (Chrome). You only need to do this once per browser.
 
 **Change resolution:** Edit `start_novnc.sh` and change the `-geometry` value (e.g., `2560x1440`, `3840x2160`).
 
 **Change VNC password:** Run `vncpasswd`, then `stop-novnc && start-novnc`.
+
+**Regenerate TLS certificate:** Delete `/etc/novnc-certs/novnc.pem` and re-run `sudo ./install-novnc.sh`.
 
 ## License
 
